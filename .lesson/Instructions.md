@@ -133,9 +133,9 @@ function drawSquare(ctx, x, y, size) {
 ```
 
 The `@param` lines tell the editor:
-- `{CanvasRenderingContext2D}` — this is the type (the canvas 2D context)
-- `ctx` — this is the parameter name
-- `The canvas drawing context` — this is a description (optional but helpful)
+- `{CanvasRenderingContext2D}` - this is the type (the canvas 2D context)
+- `ctx` - this is the parameter name
+- `The canvas drawing context` - this is a description (optional but helpful)
 
 Now when you type `ctx.` inside your function, you'll see all the available canvas methods like `fillRect`, `arc`, `beginPath`, etc.
 

@@ -12,7 +12,7 @@ In this project, your goal is to create a simple game that demonstrates your und
 
 Your game **must** include the following:
 
-1. **Use a list (array) for data in the game** – For example, you might have a list of falling objects, a list of enemies, a list of collectible items, or a list of obstacles. The list should be central to your game logic.
+1. **Use at least one list (array) for data in the game** – For example, you might have a list of falling objects, a list of enemies, a list of collectible items, or a list of obstacles. The list should be central to your game logic.
 
 2. **Define a named function** – You must create at least one named function (not just anonymous arrow functions). This function should perform a meaningful task in your game.
 
