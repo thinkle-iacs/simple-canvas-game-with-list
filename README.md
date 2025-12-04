@@ -16,11 +16,11 @@ Your game **must** include the following:
 
 2. **Define a named function** – You must create at least one named function (not just anonymous arrow functions). This function should perform a meaningful task in your game.
 
-3. **Call your named function** – Your named function must be called somewhere in your program.
+3. **Call your named function** – Your named function must be called somewhere in your program, and should take parameters and/or return a value.
 
 4. **Optional: Use objects in your list** – For extra challenge, consider storing objects in your list (e.g., a list of objects where each object has properties like `x`, `y`, `speed`, etc.).
 
-Your goal should be to come up with a _new_ game: please don't simply reimplement Pong or a well known existing game. I recommend taking inspiration from drawings or animations you've done in our intro to canvas drawing as you build your games. You can also come up with your own twist on an existing game.
+Your goal should be to come up with a _new_ game: please don't simply reimplement Pong or a well known existing game.
 
 ### Sample Game Ideas Using Lists
 
@@ -30,11 +30,9 @@ Here are some ideas that naturally use lists:
 
 2. **Bubble shooter / Asteroid field** – Keep a list of bubbles or asteroids on screen. The player shoots or avoids them. When one is hit or leaves the screen, remove it from the list.
 
-3. **Collectibles game** – Scatter collectible items (coins, gems, etc.) stored in a list. The player moves around to collect them.
+3. **Trail or path drawing** – Store a list of points representing where the player has been, then draw a trail connecting them.
 
-4. **Particle effects** – Create a list of particles that spawn on click or collision and animate outward before fading away.
-
-5. **Trail or path drawing** – Store a list of points representing where the player has been, then draw a trail connecting them.
+4. **Pattern or Fractal generator** – Use a list to store shapes or segments that make up a pattern, and draw them each frame. A user could add to the pattern interactively by clicking. (For example: you could "mirror" the mouse position across the canvas center to create symmetric patterns or snowflakes).
 
 ## Planning and Requirements
 
@@ -112,7 +110,7 @@ When you create a named function that uses `ctx` (the canvas context), you can a
  * @param {number} size - The size of the square
  */
 function drawSquare(ctx, x, y, size) {
-  ctx.fillRect(x, y, size, size);  // Now you get autocomplete for ctx!
+  ctx.fillRect(x, y, size, size); // Now you get autocomplete for ctx!
 }
 ```
 
