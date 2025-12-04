@@ -133,7 +133,7 @@ Your project will be assessed based on the following criteria:
 ### 1. Do you use a list (array) effectively in your game?
 
 - **Proficient (3):** A list is used to store multiple items of game data (e.g., falling objects, collectibles). The list is iterated over using a loop.
-- **Mastery (4):** The list stores objects with multiple properties. Items are added to and/or removed from the list during gameplay. The code demonstrates understanding of array methods (e.g., `push`, `splice`, `filter`, `forEach`).
+- **Mastery (4):** The list stores objects with multiple properties. Items are added to and/or removed from the list during gameplay. The code demonstrates understanding of array methods (e.g., `push`, `pop`, `shift`).
 
 ### 2. Do you define and use named functions?
 
