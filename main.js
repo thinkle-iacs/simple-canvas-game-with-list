@@ -38,7 +38,7 @@ gi.addDrawing(
 /* Example: Mouse click handler (you can change to handle 
 any type of event -- keydown, mousemove, etc) */
 
-gi.addEventListener(
+gi.addHandler(
   "click",
   function ({ event, x, y }) {
     // Your click handling code here...
