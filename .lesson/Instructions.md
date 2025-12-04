@@ -1,92 +1,254 @@
-Hello friends. This is a very simple interface, designed to help you practice some basic flow control and make a very simple text game.
+# Instructions: Simple Canvas Game with Lists
 
-## Creating a Text Interface 
+This project helps you practice using **lists (arrays)** and **named functions** while building an interactive canvas game.
 
-To create a text interface, you'll need to import my code
-with the line:
+## Getting Started
 
-```ts
-import {TextInterface} from './textInterface'
+To run the project, use:
+
+```sh
+npm run dev
 ```
 
-Then you will need to create your interface with a constructor call, which looks like this:
+Your code should live in `main.js`. See `demo.js` for sample code.
 
-```ts
-const ti = new TextInterface();
+## Setting Up the Game Interface
+
+To create a game interface, you'll need to import the library and create a new `GameInterface`:
+
+```javascript
+import { GameInterface } from 'simple-canvas-library';
+
+const gi = new GameInterface();
 ```
 
-That code is creating a new constant variable, named `ti` which will store your "Text Interface" object created by my library. You don't have to worry about it too much (it's what we call "boilerplate" for now -- some code you'll have to write to get started).
+## Working with Lists (Arrays)
 
-## Using your text interface
+A list (or array) is a way to store multiple values in a single variable. In JavaScript, you create a list with square brackets:
 
-### Writing text
+```javascript
+// An empty list
+let fallingObjects = [];
 
-Your text interface has some methods which will be handy. To write text onto the screen, you can use the `output` method, which looks like this in practice:
-
-```typescript
-ti.output("Hello World!");
+// A list with initial values
+let enemies = [
+  { x: 100, y: 0, speed: 2 },
+  { x: 200, y: 50, speed: 3 },
+  { x: 300, y: 25, speed: 1.5 }
+];
 ```
 
-Some important elements of this to understand are:
+### Adding Items to a List
 
-1. You are *calling* the method named *output* which is part of the *object* *ti*.
-2. You are *passing* an *argument* which tells output *what* to output.
-3. The argument you pass to *output* needs to be a string, which is a representation of a word or words. In JavaScript, strings are written between quotes. You can use double or single quotes, or you can use backticks, which have special properties we'll learn about later. So any of the following would work:
+Use `push()` to add items to the end of a list:
 
-```typescript
-ti.output('Hello world');
-ti.output("Hello world");
-ti.output(`Hello world`);
+```javascript
+// Add a new falling object
+fallingObjects.push({ x: Math.random() * 800, y: 0, speed: 2 });
 ```
 
-If you want to make the text appear slower or faster, you can change the outputAnimationLength property of your Text Interface, which determines how many milliseconds the computer will take to "type" the output. To make it faster, you could do this:
+### Looping Through a List
 
-```typescript
-ti.outputAnimationLength = 50;
-ti.output('Wow now I am typing really fast');
+Use a `for` loop or `forEach` to go through each item:
+
+```javascript
+// Using a for loop
+for (let i = 0; i < fallingObjects.length; i++) {
+  let obj = fallingObjects[i];
+  // Draw or update obj...
+}
+
+// Using forEach
+fallingObjects.forEach(function(obj) {
+  // Draw or update obj...
+});
 ```
 
-### Reading Text
+### Removing Items from a List
 
-Reading input is a little bit trickier. Typically, you will want to *store* the value the user types in a variable, so you'll need to declare a variable. You can do this with the *let* keyword, which is used for variables that change, or with the *const* keyword, which is used for variables that don't change. The advantage of using *const* is that you will get an error if you accidentally try to change a variable later in your code. 
+Use `splice()` to remove an item at a specific index, or `filter()` to create a new list without certain items:
 
-When we *read* text, we need to wait for the user to respond -- because this takes time, we need to use a special keyword `await` before any `read` calls on our *TextInterface* object. This will make the code wait until the user is done typing before moving to the next line.
+```javascript
+// Remove item at index i
+fallingObjects.splice(i, 1);
 
-```typescript
-ti.output('What is your name?');
-let name = await ti.readText();
+// Keep only objects that are still on screen
+fallingObjects = fallingObjects.filter(function(obj) {
+  return obj.y < 600; // Keep if y is less than 600
+});
 ```
 
-#### Reading Other Values
+## Defining Named Functions
 
-I build TextInterface to have a few other convenient reading methods.
+A named function has a name you define, and you call it by that name:
 
-* ti.readNumber() - returns a number
-* ti.readYesOrNo() - returns a true or false value
-* ti.readChoice(['A','B','C','D']); - takes a list of choices as an argument and returns one of the choices.
+```javascript
+// Define a named function
+function spawnEnemy() {
+  enemies.push({
+    x: Math.random() * 800,
+    y: 0,
+    speed: 1 + Math.random() * 2
+  });
+}
 
-Each of these methods also needs to be called with the special *await* keyword to make sure the computer waits for the user to type a result before continuing on with the next line of your code.
+// Call the function
+spawnEnemy();
+```
 
-## Writing an if statement
+Named functions can also take parameters and return values:
 
-You can write an *if* statement in JavaScript like this:
+```javascript
+// A function with parameters that returns a value
+function checkCollision(obj1, obj2, radius) {
+  let dx = obj1.x - obj2.x;
+  let dy = obj1.y - obj2.y;
+  let distance = Math.sqrt(dx * dx + dy * dy);
+  return distance < radius;
+}
 
-```typescript
-if (condition) {
-  // statement if condition is truthy
-} else {
-  // statement if condition is falsy
+// Call the function and use the result
+if (checkCollision(player, enemy, 30)) {
+  // Handle collision...
 }
 ```
 
-Here's what that looks like in practice with our text interface.
+### Getting Type Hints in Named Functions
 
-```typescript
-ti.output('What is 2 + 2');
-let answer = await ti.readNumber();
-if (answer == 4) {
-   ti.output('Correct!');
-} else {
-   ti.output("I'm afraid that is wrong");
+When you create a named function that takes `ctx` (the canvas context) as a parameter, you won't automatically get type hints when you type `ctx.` — the editor doesn't know what type `ctx` is!
+
+You can fix this by adding a **JSDoc comment** above your function that tells the editor what type each parameter is. Here's how:
+
+```javascript
+/**
+ * Draw a square on the canvas
+ * @param {CanvasRenderingContext2D} ctx - The canvas drawing context
+ * @param {number} x - The x position of the square
+ * @param {number} y - The y position of the square  
+ * @param {number} size - The size of the square
+ */
+function drawSquare(ctx, x, y, size) {
+  ctx.fillRect(x, y, size, size);  // Now you get autocomplete for ctx!
 }
 ```
+
+The `@param` lines tell the editor:
+- `{CanvasRenderingContext2D}` — this is the type (the canvas 2D context)
+- `ctx` — this is the parameter name
+- `The canvas drawing context` — this is a description (optional but helpful)
+
+Now when you type `ctx.` inside your function, you'll see all the available canvas methods like `fillRect`, `arc`, `beginPath`, etc.
+
+Here are common types you might use:
+
+| Type | Use for |
+|------|---------|
+| `CanvasRenderingContext2D` | The `ctx` canvas context |
+| `number` | Numbers (x, y, size, speed, etc.) |
+| `string` | Text/strings |
+| `boolean` | True/false values |
+| `object` | An object with properties |
+| `Array` | A list/array |
+
+## Drawing and Animation
+
+Add drawing functions to render your game:
+
+```javascript
+gi.addDrawing(function({ ctx, width, height, elapsed, stepTime }) {
+  // Clear the canvas
+  ctx.clearRect(0, 0, width, height);
+  
+  // Loop through your list and draw each item
+  for (let i = 0; i < fallingObjects.length; i++) {
+    let obj = fallingObjects[i];
+    ctx.fillStyle = 'red';
+    ctx.beginPath();
+    ctx.arc(obj.x, obj.y, 10, 0, Math.PI * 2);
+    ctx.fill();
+    
+    // Update position
+    obj.y += obj.speed * (stepTime / 1000) * 100;
+  }
+});
+```
+
+## Handling User Input
+
+Add event handlers for user interaction:
+
+```javascript
+// Keyboard input
+gi.addEventListener('keydown', function({ event }) {
+  if (event.key === 'ArrowLeft') {
+    playerX -= 10;
+  } else if (event.key === 'ArrowRight') {
+    playerX += 10;
+  }
+});
+
+// Mouse/click input
+gi.addClickHandler(function({ x, y }) {
+  // Handle click at position (x, y)
+});
+```
+
+## Running the Game
+
+Start the game loop:
+
+```javascript
+gi.run();
+```
+
+## Example: Putting It All Together
+
+Here's a simple example that uses a list and a named function:
+
+```javascript
+import { GameInterface } from 'simple-canvas-library';
+
+const gi = new GameInterface();
+
+// List to store falling stars
+let stars = [];
+
+// Named function to spawn a new star
+function spawnStar() {
+  stars.push({
+    x: Math.random() * 800,
+    y: 0,
+    speed: 50 + Math.random() * 100
+  });
+}
+
+// Spawn a star every second
+setInterval(spawnStar, 1000);
+
+// Drawing function
+gi.addDrawing(function({ ctx, width, height, stepTime }) {
+  ctx.fillStyle = 'black';
+  ctx.fillRect(0, 0, width, height);
+  
+  // Draw and update each star
+  for (let i = 0; i < stars.length; i++) {
+    let star = stars[i];
+    ctx.fillStyle = 'yellow';
+    ctx.beginPath();
+    ctx.arc(star.x, star.y, 5, 0, Math.PI * 2);
+    ctx.fill();
+    
+    // Move star down
+    star.y += star.speed * (stepTime / 1000);
+  }
+  
+  // Remove stars that have fallen off screen
+  stars = stars.filter(function(star) {
+    return star.y < height;
+  });
+});
+
+gi.run();
+```
+
+For more details, see the main [README](../README.md) file.
