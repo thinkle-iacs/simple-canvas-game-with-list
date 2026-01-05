@@ -152,8 +152,8 @@ Your project will be assessed based on the following criteria:
 
 ### 5. Is your game fun and engaging to play?
 
-- **Proficient (3):** The game has a clear goal and provides feedback to the player (e.g., score, lives).
-- **Mastery (4):** The game includes additional features that enhance engagement (e.g., levels, increasing difficulty, sound effects, visual polish).
+- **Proficient (3):** The game has a clear goal and provides feedback to the player (e.g., score, lives). It is clear how to play the game, either from instructions, or from immediate feedback.
+- **Mastery (4):** The game includes additional features that enhance engagement (e.g., levels, increasing difficulty, sound effects, visual polish). The game "ramps" the user onboard with a playable experience and increases in difficulty as play progresses.
 
 ### 6. Is your code well organized and easy to read?
 
